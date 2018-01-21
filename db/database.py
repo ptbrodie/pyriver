@@ -7,7 +7,7 @@ class DB(object):
 
     def __init__(self):
         self.Model = declarative_base()
-        self.engine = create_engine('sqlite:////home/vagrant/river/client/.river.db')
+        self.engine = create_engine('sqlite:///.river.db')
         Session = sessionmaker()
         self.session = Session(bind=self.engine)
 

@@ -31,5 +31,5 @@ commands = {
 
 
 if __name__ == "__main__":
-    from client.db import db
+    from db import db
     commands[sys.argv[1]]()
