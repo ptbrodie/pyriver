@@ -2,8 +2,8 @@ from time import sleep
 
 import schedule
 
-from client.engine.manager import EventManager
-from client.engine.exception import (
+from engine.manager import EventManager
+from engine.exception import (
     NoSourceIntervalException,
     InvalidSourceIntervalException
 )

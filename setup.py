@@ -11,6 +11,6 @@ setup(name='pyriver',
         'redis==2.10.6',
         'requests==2.18.4',
         'schedule==0.5.0',
-        'sqlalchemy1.2.1',
+        'sqlalchemy==1.2.1',
       ],
       scripts=['./river'])

@@ -3,10 +3,10 @@ import json
 
 import redis
 
-from client.engine.listener import Listener
-from client.engine.processor import RiverProcessor
-from client.services import RiverService
-from client.services import event_service as events
+from engine.listener import Listener
+from engine.processor import RiverProcessor
+from services import RiverService
+from services import event_service as events
 
 
 class EventManager(object):

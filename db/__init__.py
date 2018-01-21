@@ -1,4 +1,4 @@
-from client.db.database import DB
+from db.database import DB
 
 
 db = DB()

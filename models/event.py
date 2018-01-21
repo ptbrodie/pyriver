@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy import Column, Integer, Text
 from sqlalchemy.orm import relationship
 
-from client.models.base import BaseModel
+from models.base import BaseModel
 
 
 class Event(BaseModel):

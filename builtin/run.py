@@ -1,7 +1,7 @@
 import imp
 import json
 
-from client.engine.manager import River
+from engine.manager import River
 
 
 def execute():

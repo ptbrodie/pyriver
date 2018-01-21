@@ -1,7 +1,7 @@
 import json
 
-from client.db import db
-from client.models import River, Channel
+from db import db
+from models import River, Channel
 
 
 class RiverService(object):

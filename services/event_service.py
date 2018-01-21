@@ -1,6 +1,6 @@
 import json
 
-from client.models import Event
+from models import Event
 
 
 def create_event(river, event):
