@@ -1,7 +1,7 @@
 import imp
 import json
 
-from engine.manager import River
+from pyriver.engine.manager import River
 
 
 def execute():

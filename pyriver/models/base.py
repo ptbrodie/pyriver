@@ -1,5 +1,5 @@
 from datetime import datetime
-from db import db
+from pyriver.db import db
 
 
 class BaseModel(db.Model):

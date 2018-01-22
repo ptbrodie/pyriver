@@ -4,7 +4,7 @@ from sqlalchemy import Column, Text, Integer
 from sqlalchemy.orm import relationship
 
 
-from models.base import BaseModel
+from pyriver.models.base import BaseModel
 
 
 class River(BaseModel):

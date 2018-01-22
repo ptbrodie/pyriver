@@ -2,8 +2,8 @@ from time import sleep
 
 import schedule
 
-from engine.manager import EventManager
-from engine.exception import (
+from pyriver.engine.manager import EventManager
+from pyriver.engine.exception import (
     NoSourceIntervalException,
     InvalidSourceIntervalException
 )

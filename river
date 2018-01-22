@@ -2,8 +2,8 @@
 
 import sys
 
-from builtin import init
-from builtin import run
+from pyriver.builtin import init
+from pyriver.builtin import run
 
 
 def load():
@@ -33,5 +33,5 @@ commands = {
 
 
 if __name__ == "__main__":
-    from db import db
+    from pyriver.db import db
     commands[sys.argv[1]]()

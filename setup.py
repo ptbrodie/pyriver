@@ -1,7 +1,8 @@
 from distutils.core import setup
 
 setup(name='pyriver',
-      version='0.0.1.3',
+      packages=['pyriver'],
+      version='0.0.1.7',
       description='River client.',
       url='http://github.com/ptbrodie/pyriver',
       author='Patrick Brodie',

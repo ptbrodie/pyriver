@@ -1,7 +1,7 @@
 import json
 
-from db import db
-from models import River, Channel
+from pyriver.db import db
+from pyriver.models import River, Channel
 
 
 class RiverService(object):

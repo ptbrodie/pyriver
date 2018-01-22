@@ -1,6 +1,6 @@
 import json
 
-from models import Event
+from pyriver.models import Event
 
 
 def create_event(river, event):

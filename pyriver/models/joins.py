@@ -1,7 +1,7 @@
 from sqlalchemy import Table, Column, Integer, ForeignKey
 
-from models.base import BaseModel
-from models import River, Channel    # noqa
+from pyriver.models.base import BaseModel
+from pyriver.models import River, Channel    # noqa
 
 
 river_event_join = Table(
