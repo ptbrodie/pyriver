@@ -2,4 +2,4 @@ import subprocess
 
 
 def execute():
-    subprocess.popen(["docker", "build", ".", "--file", ".river/Dockerfile"])
+    subprocess.Popen(["docker", "build", ".", "--file", ".river/Dockerfile"])

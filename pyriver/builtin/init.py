@@ -21,17 +21,17 @@ def write_schema():
 
 def write_dockerfile():
     lines = [
-        "FROM python:3-onbuild",
-        "RUN apt-get update",
-        "RUN apt-get -y install postgresql-client-9.4 redis-server",
-        "RUN service redis-server start",
-        "RUN mkdir -p /usr/src/river",
-        "COPY . /usr/src/river/",
-        "WORKDIR /usr/src/river",
-        "RUN chmod +x run.sh",
-        "RUN pip install pyriver",
-        "RUN if [ -f $FILE ]; then pip install -r requirements.txt; fi",
-        "CMD [ './run.sh' ]"
+        "FROM python:3-onbuild\n",
+        "RUN apt-get update\n",
+        "RUN apt-get -y install postgresql-client-9.4 redis-server\n",
+        "RUN service redis-server start\n",
+        "RUN mkdir -p /usr/src/river\n",
+        "COPY . /usr/src/river/\n",
+        "WORKDIR /usr/src/river\n",
+        "RUN chmod +x run.sh\n",
+        "RUN pip install pyriver\n",
+        "RUN if [ -f $FILE ]; then pip install -r requirements.txt; fi\n",
+        "CMD [ './run.sh' ]\n"
     ]
     with open(".river/Dockerfile", "w+") as dockerfile:
         dockerfile.writelines(lines)
@@ -39,9 +39,9 @@ def write_dockerfile():
 
 def write_executable():
     content = [
-        "#!/usr/bin/env sh",
-        "service redis-server start",
-"river run > log.txt"
+        "#!/usr/bin/env sh\n",
+        "service redis-server start\n",
+        "river run > log.txt\n"
     ]
     os.makedirs(".river/bin/")
     with open(".river/bin/run", "w+") as executable:
@@ -49,6 +49,8 @@ def write_executable():
 
 
 def execute():
+    if os.path.exists(".river/"):
+        exit("A river has already been initialized.")
     os.makedirs(".river/")
     write_schema()
     write_dockerfile()
