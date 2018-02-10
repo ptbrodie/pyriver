@@ -2,9 +2,11 @@
 
 import sys
 
-from pyriver.builtin import init
-from pyriver.builtin import run
-
+from pyriver.builtin import (
+    build,
+    init,
+    run
+)
 
 def load():
     pass
@@ -23,6 +25,7 @@ def backfill():
 
 
 commands = {
+    "build": build.execute,
     "init": init.execute,
     "load": load,
     "run": run.execute,
