@@ -3,6 +3,7 @@ import threading
 import redis
 
 
+
 class Listener(threading.Thread):
 
     def __init__(self, channel, manager):

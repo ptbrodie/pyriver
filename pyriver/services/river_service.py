@@ -44,3 +44,7 @@ class RiverService(object):
         for channel in channels:
             res += Channel.get_by_name(channel)
         return res
+
+    @staticmethod
+    def get_by_id(river_id):
+        return River.query.filter_by(id=river_id).first()

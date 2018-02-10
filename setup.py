@@ -1,8 +1,9 @@
 from distutils.core import setup
+from setuptools import find_packages
 
 setup(name='pyriver',
-      packages=['pyriver'],
-      version='0.0.1.7',
+      packages=find_packages(exclude=['dist']),
+      version='0.0.1.8',
       description='River client.',
       url='http://github.com/ptbrodie/pyriver',
       author='Patrick Brodie',

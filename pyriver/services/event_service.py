@@ -10,3 +10,6 @@ def create_event(river, event):
     river.events.append(model)
     river.save()
 
+
+def get_events(river, page, start_date, end_date):
+    return Event.query.filter_by(river_id=river.id).limit(100).offset(100*page)

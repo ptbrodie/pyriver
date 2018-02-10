@@ -6,11 +6,6 @@
             "entry": "MyEntry.py"
        },
        "data": {
-            "_comment": "your data here",
-            "rainfall": "ptbrodie/noaa.data.rainfall",
-            "high_temp": "ptbrodie/noaa.data.high_temp",
-            "low_temp": "ptbrodie/noaa.data.low_temp",
-            "cost_per_pound": "ptbrodie/usda.data.cost_per_pound",
-            "pounds_per_acre": "ptbrodie/usda.data.pounds_per_acre"
+            "_comment": "your data here"
        }
     }
