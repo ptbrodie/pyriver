@@ -1,4 +1,7 @@
 beautifulsoup4==4.6.0
+flask
+flask-sqlalchemy
+psycopg2
 redis==2.10.6
 requests==2.18.4
 schedule==0.5.0

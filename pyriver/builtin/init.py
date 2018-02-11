@@ -23,15 +23,14 @@ def write_dockerfile():
     lines = [
         "FROM python:3-onbuild\n",
         "RUN apt-get update\n",
-        "RUN apt-get -y install postgresql-client-9.4 redis-server\n",
-        "RUN service redis-server start\n",
+        "RUN apt-get -y install postgresql-client-9.4 sqlite3 redis-server\n",
         "RUN mkdir -p /usr/src/river\n",
         "COPY . /usr/src/river/\n",
         "WORKDIR /usr/src/river\n",
-        "RUN chmod +x run.sh\n",
+        "RUN chmod 0777 /usr/src/river/.river/bin/run\n",
         "RUN pip install pyriver\n",
         "RUN if [ -f $FILE ]; then pip install -r requirements.txt; fi\n",
-        "CMD [ './run.sh' ]\n"
+        "CMD [ '/usr/src/river/.river/bin/run' ]\n"
     ]
     with open(".river/Dockerfile", "w+") as dockerfile:
         dockerfile.writelines(lines)
@@ -39,8 +38,9 @@ def write_dockerfile():
 
 def write_executable():
     content = [
-        "#!/usr/bin/env sh\n",
+        "#!/bin/sh\n",
         "service redis-server start\n",
+        "cd /usr/src/river\n",
         "river run > log.txt\n"
     ]
     os.makedirs(".river/bin/")

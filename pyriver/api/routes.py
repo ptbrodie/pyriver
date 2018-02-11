@@ -1,7 +1,7 @@
 from flask import Blueprint
 
-from services.river_service import RiverService
-from models import River
+from pyriver.services.river_service import RiverService
+from pyriver.models import River
 
 
 bp = Blueprint("api", __name__)

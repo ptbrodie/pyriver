@@ -1,7 +1,7 @@
 from flask import Flask
 
-from server.routes import bp as root_bp
-from server.db import db
+from pyriver.api.routes import bp as root_bp
+from pyriver.db import db
 import settings
 
 
