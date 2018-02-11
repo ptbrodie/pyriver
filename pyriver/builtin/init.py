@@ -55,4 +55,4 @@ def execute():
     write_schema()
     write_dockerfile()
     write_executable()
-    db.initdb()
+    db.create_all()
