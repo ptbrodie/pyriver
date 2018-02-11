@@ -1,5 +1,6 @@
 import os
 
+from pyriver.api import create_app
 from pyriver.db import db
 
 
@@ -55,4 +56,5 @@ def execute():
     write_schema()
     write_dockerfile()
     write_executable()
-    db.create_all()
+    with create_app().app_context() as app_context:
+        db.create_all()
