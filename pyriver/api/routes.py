@@ -1,6 +1,6 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 
-from pyriver.services import river_service
+from pyriver.services import river_service, event_service
 from pyriver.models import River
 
 
@@ -12,7 +12,7 @@ def get_rivers():
     rivers = River.query.all()
     schemas = []
     for river in rivers:
-        schemas.append(river.schema)
+        schemas.append(river_service.to_doc(river))
     return jsonify(rivers=schemas)
 
 
@@ -20,16 +20,20 @@ def get_rivers():
 def get_river(river_id):
     river = river_service.get_by_id(river_id)
     if river:
-        return jsonify(river=river.schema)
+        return jsonify(river=river_service.to_doc(river))
     return "River %s not found." % river_id, 404
 
 
 @bp.route("/rivers/<river_id>/events")
 def get_events(river_id):
-    river = river_services.get_by_id(river_id)
+    river = river_service.get_by_id(river_id)
     if not river:
         return "River %s not found." % river_id, 404
-    page = request.json.get("page", 0)
-    start_date = request.json.get("start_date")
-    end_date = request.json.get("end_date")
-    events = EventService.get_events(river, page, start_date, end_date)
+    page = request.args.get("page", 0)
+    start_date = request.args.get("start_date")
+    end_date = request.args.get("end_date")
+    events = event_service.get_events(river, page, start_date, end_date)
+    result = []
+    for event in events:
+        result.append(event_service.to_doc(event))
+    return jsonify(events=result)

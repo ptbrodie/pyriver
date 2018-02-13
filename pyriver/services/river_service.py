@@ -5,7 +5,7 @@ from pyriver.models import River, Channel
 
 
 def create(schema):
-    valid = RiverService.validate_schema(schema)
+    valid = validate_schema(schema)
     if not valid:
         return None
     river = River()
@@ -20,7 +20,7 @@ def create(schema):
     river.ochannel = channel
     river.ichannels = []
     if schema['data']:
-        for channel in RiverService.get_ichannels(schema):
+        for channel in get_ichannels(schema):
             river.ichannels.append(channel)
     river.save()
     return river
@@ -45,3 +45,15 @@ def get_ichannels(schema):
 
 def get_by_id(river_id):
     return River.query.filter_by(id=river_id).first()
+
+
+def to_doc(river):
+    return {
+        "id": river.id,
+        "name": river.name,
+        "description": river.description,
+        "urls": {
+            "events_url": "/rivers/{}/events".format(river.id),
+            "info_url": "/rivers/{}".format(river.id)
+        }
+    }

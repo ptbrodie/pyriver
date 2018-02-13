@@ -29,7 +29,7 @@ def write_dockerfile():
         "COPY . /usr/src/river/\n",
         "WORKDIR /usr/src/river\n",
         "RUN chmod 0777 /usr/src/river/.river/bin/run\n",
-        "RUN pip install pyriver\n",
+        "RUN pip install -e file:///usr/src/river/venv/src/pyriver#egg=pyriver --upgrade\n",
         "RUN if [ -f $FILE ]; then pip install -r requirements.txt; fi\n",
         "ENV RIVER_HOME /usr/src/river/\n",
         "CMD [ \"/usr/src/river/.river/bin/run\" ]\n"
@@ -43,6 +43,7 @@ def write_executable():
         "#!/bin/sh\n",
         "service redis-server start\n",
         "cd /usr/src/river\n",
+        "river-server &\n",
         "river run\n"
     ]
     os.makedirs(".river/bin/")
@@ -57,5 +58,4 @@ def execute():
     write_schema()
     write_dockerfile()
     write_executable()
-    with create_app().app_context() as app_context:
-        db.create_all()
+    db.create_all()

@@ -2,7 +2,7 @@ from flask import Flask
 
 from pyriver.api.routes import bp as root_bp
 from pyriver.db import db
-import settings
+from pyriver import settings
 
 
 def create_app():

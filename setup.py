@@ -18,4 +18,5 @@ setup(name='pyriver',
         'schedule==0.5.0',
         'sqlalchemy==1.2.1',
       ],
+      entry_points={"console_scripts": ["river-server=pyriver.server:run_server"]},
       scripts=['./river'])
