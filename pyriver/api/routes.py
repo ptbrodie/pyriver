@@ -1,6 +1,6 @@
-from flask import Blueprint
+from flask import Blueprint, jsonify
 
-from pyriver.services.river_service import RiverService
+from pyriver.services import river_service
 from pyriver.models import River
 
 
@@ -18,12 +18,15 @@ def get_rivers():
 
 @bp.route("/rivers/<river_id>")
 def get_river(river_id):
-    pass
+    river = river_service.get_by_id(river_id)
+    if river:
+        return jsonify(river=river.schema)
+    return "River %s not found." % river_id, 404
 
 
 @bp.route("/rivers/<river_id>/events")
 def get_events(river_id):
-    river = RiverService.get_by_id(river_id)
+    river = river_services.get_by_id(river_id)
     if not river:
         return "River %s not found." % river_id, 404
     page = request.json.get("page", 0)

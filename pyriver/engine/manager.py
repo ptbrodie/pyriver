@@ -5,8 +5,8 @@ import redis
 
 from pyriver.engine.listener import Listener
 from pyriver.engine.processor import RiverProcessor
-from pyriver.services import RiverService
-from pyriver.services import event_service as events
+from pyriver.services import river_service
+from pyriver.services import event_service
 
 
 class EventManager(object):
@@ -17,7 +17,7 @@ class EventManager(object):
         self.aggregator = {}
 
     def init(self, schema):
-        self.river = RiverService.create(schema)
+        self.river = river_service.create(schema)
         self.schema = schema
         self.initialized = True
 
@@ -55,7 +55,7 @@ class EventManager(object):
         pass
 
     def save_event(self, event):
-        events.create_event(self.river, event)
+        event_service.create_event(self.river, event)
 
     def processor(self, index):
         def decorator(f):
@@ -73,13 +73,14 @@ class EventManager(object):
         res['data'] = result
         return res
 
+
 class River(EventManager):
 
     def __init__(self):
         self.processors = []
 
     def init(self, schema):
-        self.river = RiverService.create(schema)
+        self.river = river_service.create(schema)
         self.publisher = redis.Redis()
 
     def run(self):

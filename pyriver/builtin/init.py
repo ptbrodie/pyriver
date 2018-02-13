@@ -31,7 +31,8 @@ def write_dockerfile():
         "RUN chmod 0777 /usr/src/river/.river/bin/run\n",
         "RUN pip install pyriver\n",
         "RUN if [ -f $FILE ]; then pip install -r requirements.txt; fi\n",
-        "CMD [ '/usr/src/river/.river/bin/run' ]\n"
+        "ENV RIVER_HOME /usr/src/river/\n",
+        "CMD [ \"/usr/src/river/.river/bin/run\" ]\n"
     ]
     with open(".river/Dockerfile", "w+") as dockerfile:
         dockerfile.writelines(lines)
@@ -42,7 +43,7 @@ def write_executable():
         "#!/bin/sh\n",
         "service redis-server start\n",
         "cd /usr/src/river\n",
-        "river run > log.txt\n"
+        "river run\n"
     ]
     os.makedirs(".river/bin/")
     with open(".river/bin/run", "w+") as executable:

@@ -1,6 +1,6 @@
 import os
 
-RIVERBANK_HOME = os.getenv("RIVERBANK_HOME", "/Users/patrick/river/riverbank")
+RIVER_HOME = os.getenv("RIVER_HOME", os.getcwd())
 
 POSTGRESQL_USER = os.getenv("POSTGRESQL_USER", "river")
 POSTGRESQL_PASSWORD = os.getenv("POSTGRESQL_PASSWORD", "river")
@@ -12,8 +12,8 @@ SQLALCHEMY_DATABASE_URI = "postgresql://%s:%s@%s/%s" % \
                            POSTGRESQL_HOST,
                            POSTGRESQL_DB)
 
-STATIC_FOLDER = os.path.join(RIVERBANK_HOME, "client")
-TEMPLATE_FOLDER = os.path.join(RIVERBANK_HOME, "client/templates")
+STATIC_FOLDER = os.path.join(RIVER_HOME, "client")
+TEMPLATE_FOLDER = os.path.join(RIVER_HOME, "client/templates")
 
 
-SQLALCHEMY_DATABASE_URI = "sqlite:///.river/river.db"
+SQLALCHEMY_DATABASE_URI = "sqlite:///{}/.river/river.db".format(RIVER_HOME)
