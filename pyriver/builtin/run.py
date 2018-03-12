@@ -1,15 +1,15 @@
 import imp
 import json
 
-from pyriver.engine.manager import River
+from pyriver.engine.stream import Stream
 
 
-def execute():
+def execute(*args, **kwargs):
     with open("river.json", "rb") as riverfile:
         schema = json.load(riverfile)
         entry = schema.get("metadata", {}).get("entry")
-        river = River()
+        stream = Stream()
         if entry:
-            river = imp.load_source("river", entry).river
-        river.init(schema)
-        river.run()
+            stream = imp.load_source("stream", entry).river
+        stream.init(schema)
+        stream.run()

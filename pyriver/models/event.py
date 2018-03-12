@@ -12,9 +12,9 @@ class Event(BaseModel):
     create_date = Column(Text, default=datetime.utcnow().isoformat)
     timestamp = Column(Text)
     value = Column(Text)
-    river = relationship(
-        "River",
+    stream = relationship(
+        "Stream",
         lazy="dynamic",
-        secondary="river_event_join",
+        secondary="stream_event_join",
         back_populates="events"
     )

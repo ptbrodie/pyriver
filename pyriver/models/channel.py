@@ -12,12 +12,12 @@ class Channel(BaseModel):
     create_date = Column(Text, default=datetime.utcnow().isoformat)
     modify_date = Column(Text, default=datetime.utcnow().isoformat)
     name = Column(Text)
-    river_id = Column(Text, ForeignKey("river.id"))
-    river = relationship("River", uselist=False, back_populates="ochannel")
+    stream_id = Column(Text, ForeignKey("stream.id"))
+    stream = relationship("Stream", uselist=False, back_populates="ochannel")
     subscribers = relationship(
-        "River",
+        "Stream",
         lazy="dynamic",
-        secondary="river_channel_join",
+        secondary="stream_channel_join",
         back_populates="ichannels"
     )
 

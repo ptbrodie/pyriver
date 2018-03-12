@@ -1,4 +1,4 @@
-class RiverProcessor(object):
+class StreamProcessor(object):
 
     def __init__(self, function):
         self.function = function

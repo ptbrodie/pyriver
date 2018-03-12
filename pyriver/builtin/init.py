@@ -1,23 +1,24 @@
+import json
 import os
 
 from pyriver.api import create_app
 from pyriver.db import db
 
 
-def write_schema():
-    starter = """{
-       "metadata": {
-            "name": "My River",
-            "user": "ptbrodie",
-            "interval": "hourly",
-            "entry": "MyEntry.py"
-       },
-       "data": {
-            "_comment": "your data here"
-       }
-    }"""
+def write_schema(args):
+    name = args.stream if args.stream else "my-river"
+    interval = args.interval if args.interval else "5_second"
+    starter = {
+        "metadata": {},
+        "data": {}
+    }
+    starter["metadata"]["name"] = name
+    starter["metadata"]["user"] = "ptbrodie"
+    starter["metadata"]["interval"] = interval
+    starter["metadata"]["entry"] = "myentry.py"
+    starter["data"]["_comment"] = "your data schema here"
     with open ("river.json", "w+") as schema:
-        schema.writelines(starter)
+        schema.writelines(json.dumps(starter))
 
 
 def write_dockerfile():
@@ -51,11 +52,11 @@ def write_executable():
         executable.writelines(content)
 
 
-def execute():
+def execute(args):
     if os.path.exists(".river/"):
         exit("A river has already been initialized.")
     os.makedirs(".river/")
-    write_schema()
+    write_schema(args)
     write_dockerfile()
     write_executable()
     db.create_all()
