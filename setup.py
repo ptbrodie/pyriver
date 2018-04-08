@@ -3,7 +3,7 @@ from setuptools import find_packages
 
 setup(name='pyriver',
       packages=find_packages(exclude=['dist']),
-      version='0.0.1.8',
+      version='0.0.1.10',
       description='River client.',
       url='http://github.com/ptbrodie/pyriver',
       author='Patrick Brodie',

@@ -18,7 +18,7 @@ def write_schema(args):
     starter["metadata"]["entry"] = "myentry.py"
     starter["data"]["_comment"] = "your data schema here"
     with open ("river.json", "w+") as schema:
-        schema.writelines(json.dumps(starter))
+        schema.writelines(json.dumps(starter, indent=4, sort_keys=True))
 
 
 def write_dockerfile():

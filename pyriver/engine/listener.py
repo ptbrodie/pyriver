@@ -10,8 +10,10 @@ class Listener(threading.Thread):
         self.manager = manager
         threading.Thread.__init__(self)
         self.channel = channel
-        self.listener = redis.Redis().pubsub()
-        self.listener.subscribe(channel)
+        r = redis.StrictRedis(host=channel.host, port=6379, db=0)
+        self.listener = r.pubsub()
+        self.listener.subscribe(channel.name)
+        print("Subscribed to events from river at %s:%s" % (self.channel.host, self.channel.port))
 
     def stage_event(self, ievent):
         with threading.Lock():

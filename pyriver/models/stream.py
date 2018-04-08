@@ -12,6 +12,8 @@ class Stream(BaseModel):
     id = Column(Integer, primary_key=True, autoincrement=True, index=True)
     create_date = Column(Text, default=datetime.utcnow().isoformat)
     modify_date = Column(Text, default=datetime.utcnow().isoformat)
+    host = Column(Text)
+    port = Column(Integer)
     name = Column(Text, index=True)
     # user = Column(Text, ForeignKey("user.id"))
     description = Column(Text)

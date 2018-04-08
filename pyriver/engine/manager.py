@@ -1,5 +1,5 @@
-from time import time
 import json
+from time import time
 
 import redis
 
@@ -12,13 +12,14 @@ class EventManager(object):
 
     def __init__(self):
         self.processors = []
-        self.publisher = redis.Redis()
         self.aggregator = {}
 
     def init(self, schema):
         self.stream = stream_service.create(schema)
         self.schema = schema
-        self.initialized = True
+        host = self.stream.ochannel.host
+        port = self.stream.ochannel.port
+        self.publisher = redis.Redis(host=host, port=port)
 
     def run(self):
         raise NotImplementedError()
@@ -42,7 +43,7 @@ class EventManager(object):
         return res
 
     def publish(self, oevent):
-        self.publisher.publish(self.stream.ochannel, json.dumps(oevent))
+        self.publisher.publish(self.stream.ochannel.name, json.dumps(oevent))
 
     def before_processing(self, *args, **kwargs):
         pass

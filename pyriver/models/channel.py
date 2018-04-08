@@ -12,6 +12,8 @@ class Channel(BaseModel):
     create_date = Column(Text, default=datetime.utcnow().isoformat)
     modify_date = Column(Text, default=datetime.utcnow().isoformat)
     name = Column(Text)
+    host = Column(Text)
+    port = Column(Integer)
     stream_id = Column(Text, ForeignKey("stream.id"))
     stream = relationship("Stream", uselist=False, back_populates="ochannel")
     subscribers = relationship(

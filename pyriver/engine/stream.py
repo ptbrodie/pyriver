@@ -1,18 +1,10 @@
-import redis
+import json
 
 from pyriver.engine.manager import EventManager
 from pyriver.engine.listener import Listener
-from pyriver.services import stream_service
 
 
 class Stream(EventManager):
-
-    def __init__(self):
-        self.processors = []
-
-    def init(self, schema):
-        self.stream = stream_service.create(schema)
-        self.publisher = redis.Redis()
 
     def run(self):
         for channel in self.stream.ichannels:
@@ -24,10 +16,10 @@ class Stream(EventManager):
         timestamp = event['metadata']['timestamp']
         channel_events = self.aggregator.get(timestamp, {})
         # TODO: possible we overwrite an event here on a larger time interval
-        channel_events[channel] = event
+        channel_events[channel.name] = event
         self.aggregator[timestamp] = channel_events
         for channel in self.stream.ichannels:
-            if channel not in channel_events:
+            if channel.name not in channel_events:
                 return
         self.handle(timestamp, channel_events)
 
@@ -37,7 +29,7 @@ class Stream(EventManager):
         data = {}
         metadata['timestamp'] = timestamp
         metadata['stream'] = stream.name
-        for key, path in stream.ischema.iteritems():
+        for key, path in self.schema["data"].items():
             if key == "_comment":
                 continue
             data[key] = self.get_value(path, channel_events)
@@ -51,20 +43,14 @@ class Stream(EventManager):
             return None
         curr = events[tokens[0]]
         for token in tokens[1:]:
-            curr = curr[token]
+            curr = curr["data"][token]
         return curr
 
 
     def handle(self, timestamp, channel_events):
         revent = self.build_oevent(self.stream, timestamp, channel_events)
         result = self.process(revent)
-        oevent = self.structure_result(timestamp, result)
+        oevent = self.structure_output(timestamp, result)
         self.save_event(oevent)
         self.publish(oevent)
-
-
-    def process(self, event):
-        res = event
-        for processor in self.processors:
-            res = processor.process(**event)
-        return res
+        self.after_processing()
