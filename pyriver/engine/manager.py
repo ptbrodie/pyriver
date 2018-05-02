@@ -16,6 +16,7 @@ class EventManager(object):
 
     def init(self, schema):
         self.stream = stream_service.create(schema)
+        self.ichannels = [c for c in self.stream.ichannels]
         self.schema = schema
         host = self.stream.ochannel.host
         port = self.stream.ochannel.port

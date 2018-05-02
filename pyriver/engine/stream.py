@@ -7,18 +7,19 @@ from pyriver.engine.listener import Listener
 class Stream(EventManager):
 
     def run(self):
-        for channel in self.stream.ichannels:
+        for channel in self.ichannels:
             listener = Listener(channel, self)
             listener.start()
 
     def stage_ievent(self, channel, ievent):
         event = json.loads(ievent['data'])
         timestamp = event['metadata']['timestamp']
+        timestamp -= timestamp % 5
         channel_events = self.aggregator.get(timestamp, {})
         # TODO: possible we overwrite an event here on a larger time interval
         channel_events[channel.name] = event
         self.aggregator[timestamp] = channel_events
-        for channel in self.stream.ichannels:
+        for channel in self.ichannels:
             if channel.name not in channel_events:
                 return
         self.handle(timestamp, channel_events)
