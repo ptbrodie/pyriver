@@ -10,7 +10,7 @@ setup(name='pyriver',
       author_email='ptbrodie@gmail.com',
       install_requires=[
         'beautifulsoup4==4.6.0',
-        'Flask==0.12.2',
+        'Flask==1.0',
         'Flask-SQLAlchemy==2.3.2',
         'gunicorn==19.7.1',
         'redis==2.10.6',
